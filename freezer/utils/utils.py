@@ -254,7 +254,7 @@ class ReSizeStream(object):
         self.stream = stream
         self.length = length
         self.chunk_size = chunk_size
-        self.reminder = ""
+        self.reminder = b''
         self.transmitted = 0
 
     def __len__(self):
@@ -296,10 +296,15 @@ class ReSizeStream(object):
                 self.transmitted += len(result)
                 return result
 
+    def next(self):
+        return self.__next__()
+        
     def read(self, chunk_size):
         self.chunk_size = chunk_size
-        return self.next()
-
+        try:
+          return self.__next__()
+        except StopIteration:
+          print("exit from read")
 
 def dequote(s):
     """
