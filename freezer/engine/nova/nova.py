@@ -353,8 +353,9 @@ class NovaEngine(engine.BackupEngine):
 
     def set_tenant_meta(self, path, metadata):
         """push data to the manifest file"""
+        json_bytes = json.dumps(metadata).encode("utf-8")
         with open(path, 'wb') as fb:
-            fb.writelines(json.dumps(metadata))
+            fb.write(json_bytes)
 
     def get_tenant_meta(self, path):
         with open(path, 'rb') as fb:
