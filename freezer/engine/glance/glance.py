@@ -278,7 +278,7 @@ class GlanceEngine(engine.BackupEngine):
     def set_tenant_meta(self, path, metadata):
         """push data to the manifest file"""
         with open(path, 'wb') as fb:
-            fb.writelines(json.dumps(metadata))
+            fb.write(json.dumps(metadata).encode("utf-8"))
 
     def get_tenant_meta(self, path):
         with open(path, 'rb') as fb:
